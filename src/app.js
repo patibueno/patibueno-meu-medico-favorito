@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
-require('../scr/models/Doctor')
+ 
 
 app.use(express.json());
+
+const index = require('./routes/index')
+const doctors = require('./routes/doctors')
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -22,7 +25,8 @@ app.options("/*", (req, res) => {
     );
     res.send("send some thing whatever")
 })
-
+app.use("/", index)
+app.use("/doctors", doctors)
 module.exports = {
 	app
 }
