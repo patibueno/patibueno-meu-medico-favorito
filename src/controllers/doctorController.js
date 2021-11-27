@@ -57,19 +57,18 @@ const updateDoctor = async (req, res) => {
     const rowsUpdated = await Doctor.update(
       { name, crm, specialty, clinic, phone, favorite },
       {
-        where: { id: doctorId }
+        where: { id: doctorId },
       }
     );
-    if (rowsUpdated && rowsUpdated > 0) {
+
+    if (rowsUpdated && rowsUpdated[0] > 0) {
       res
         .status(200)
         .send({ message: `${rowsUpdated[0]} medico(s) atualizado(s)` });
     } else {
-      res
-        .status(404)
-        .send({
-          message: `Medico com id ${doctorId} não encontrado para atualizar`,
-        });
+      res.status(404).send({
+        message: `Medico com id ${doctorId} não encontrado para atualizar`,
+      });
     }
   } catch (error) {
     res.status(500).send({ message: error.message });
